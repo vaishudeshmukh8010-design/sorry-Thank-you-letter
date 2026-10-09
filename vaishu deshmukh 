@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter for You ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #ffe0ec, #f8b8d0, #fff0f5);
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+}
+
+h1 {
+    color: #c2185b;
+    font-size: 30px;
+}
+
+.subtitle {
+    color: #8e2454;
+}
+
+.envelope {
+    position: relative;
+    width: 260px;
+    height: 170px;
+    background: #f06292;
+    margin: 45px auto 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px #b34a7550;
+    transition: transform 0.3s;
+}
+
+.envelope:hover {
+    transform: scale(1.04);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 130px solid transparent;
+    border-right: 130px solid transparent;
+    border-top: 100px solid #ec407a;
+    transform-origin: top;
+    transition: transform 0.6s;
+    z-index: 3;
+}
+
+.heart {
+    position: absolute;
+    top: 60px;
+    left: 112px;
+    font-size: 38px;
+    z-index: 2;
+}
+
+.letter {
+    display: none;
+    background: #fffafc;
+    color: #77334e;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px #9d416333;
+    line-height: 1.8;
+    text-align: left;
+    animation: appear 0.8s ease;
+}
+
+.letter h2 {
+    text-align: center;
+    color: #d81b60;
+}
+
+.letter p {
+    white-space: pre-line;
+}
+
+button {
+    border: none;
+    background: #d81b60;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 8px;
+}
+
+button:hover {
+    background: #ad1457;
+}
+
+.hint {
+    color: #8e2454;
+    font-size: 14px;
+}
+
+.floating {
+    position: fixed;
+    bottom: -30px;
+    animation: floatUp 6s linear forwards;
+    pointer-events: none;
+    z-index: 5;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>For Someone Special 💗</h1>
+    <p class="subtitle">A little letter from my heart 💌</p>
+
+    <div class="envelope" id="envelope" onclick="openLetter()">
+        <div class="flap" id="flap"></div>
+        <div class="heart">💗</div>
+    </div>
+
+    <p class="hint" id="hint">Tap the envelope to open your letter 🥹</p>
+
+    <div class="letter" id="letter">
+        <h2>I'm Sorry & Thank You ❤️</h2>
+
+        <p>
+Dear You, 💗
+
+I'm sorry for the moments when I hurt you,
+even when I didn't mean to. 🥺
+
+Sometimes I may not express my feelings
+the right way, but that doesn't mean
+you aren't important to me.
+
+Thank you for being a part of my life,
+for the memories we share, and for
+the little things that make me smile. ❤️
+
+I can't promise that I'll always be perfect,
+but I can promise to keep learning,
+understanding, and trying to do better.
+
+You are special to me, and I hope
+we can keep choosing kindness,
+honesty, and happiness. 🫶🏻
+
+With lots of love,
+Someone who cares about you 💌
+        </p>
+
+        <button onclick="showLove()">One More Thing 💖</button>
+
+        <p id="extra" style="display:none; text-align:center;">
+            Thank you for being YOU! 🥹❤️
+            Sending you the biggest hug! 🫂
+        </p>
+    </div>
+
+</div>
+
+<script>
+let opened = false;
+
+function openLetter() {
+    if (opened) return;
+
+    opened = true;
+
+    document.getElementById("flap").style.transform =
+        "rotateX(180deg)";
+
+    document.getElementById("hint").style.display = "none";
+
+    setTimeout(() => {
+        document.getElementById("envelope").style.display = "none";
+        document.getElementById("letter").style.display = "block";
+    }, 500);
+
+    createHearts();
+}
+
+function showLove() {
+    document.getElementById("extra").style.display = "block";
+    createHearts();
+}
+
+function createHearts() {
+    for (let i = 0; i < 25; i++) {
+        setTimeout(() => {
+            const heart = document.createElement("div");
+            heart.className = "floating";
+            heart.innerHTML = ["💗", "💕", "❤️", "✨", "🌸"][
+                Math.floor(Math.random() * 5)
+            ];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (18 + Math.random() * 20) + "px";
+            heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }, i * 100);
+    }
+}
+</script>
+
+</body>
+</html>
